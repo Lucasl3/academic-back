@@ -1,5 +1,5 @@
-from academic_backend.helpers.factories import FactorySerializer
-from academic_backend.models import AnswerForm, MessageForm
+from services.helpers.factories import FactorySerializer
+from services.models import AnswerForm, MessageForm
 
 
 class AnswerFormSerializer(FactorySerializer):

@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from academic_backend.helpers.factories import Factory
+from services.helpers.factories import Factory
 
 class Form(Factory):
     co_form = models.AutoField(

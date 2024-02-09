@@ -1,5 +1,5 @@
-from academic_backend.helpers.factories import FactorySerializer
-from academic_backend.models import Notification
+from services.helpers.factories import FactorySerializer
+from services.models import Notification
 
 
 class NotificationSerializer(FactorySerializer):

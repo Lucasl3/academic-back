@@ -8,12 +8,12 @@ from rest_framework.status import (
 )
 from rest_framework.views import APIView, Response
 
-from academic_backend.helpers.shared.address_api.serializers.user_address_serializer import (
+from services.helpers.shared.address_api.serializers.user_address_serializer import (
     CitySerializer,
     CountrySerializer,
     UfSerializer,
 )
-from academic_backend.helpers.shared.address_api.services.address_service import AddressService
+from services.helpers.shared.address_api.services.address_service import AddressService
 
 country_param = openapi.Parameter(
     'country',

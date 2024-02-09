@@ -1,7 +1,7 @@
 from django.db import models
 
-from academic_backend.helpers.factory import Factory
-from academic_backend.models import User, Form
+from services.helpers.factories import Factory
+from services.models import User, Form
 
 class AnswerForm(Factory):
     co_answer_form = models.AutoField(

@@ -1,5 +1,5 @@
-from academic_backend.helpers.factories import FactorySerializer
-from academic_backend.models import Form
+from services.helpers.factories import FactorySerializer
+from services.models import Form
 
 
 class FormSerializer(FactorySerializer):

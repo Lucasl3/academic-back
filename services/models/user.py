@@ -1,6 +1,6 @@
 from django.db import models
 
-from academic_backend.helpers.factories import Factory
+from services.helpers.factories import Factory
 
 
 class User(Factory):

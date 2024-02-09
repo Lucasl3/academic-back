@@ -1,5 +1,5 @@
-from academic_backend.helpers.factories import FactorySerializer
-from academic_backend.models import News
+from services.helpers.factories import FactorySerializer
+from services.models import News
 
 
 class NewsSerializer(FactorySerializer):

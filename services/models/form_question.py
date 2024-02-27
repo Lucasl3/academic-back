@@ -1,7 +1,7 @@
 from django.db import models
 
+from django.contrib.postgres.fields import ArrayField
 from services.helpers.factories import Factory
-
 
 class FormQuestion(Factory):
     co_form_question = models.AutoField(
@@ -22,6 +22,12 @@ class FormQuestion(Factory):
     co_type_question = models.IntegerField(
         blank=False, null=False,
         db_column='co_tipo_pergunta'
+    )
+
+    nco_form_item = ArrayField(
+        models.IntegerField(),
+        blank=True, null=True,
+        db_column='nco_item_formulario'
     )
 
     class Meta:

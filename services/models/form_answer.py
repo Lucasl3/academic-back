@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.contrib.postgres.fields import ArrayField
 from services.helpers.factories import Factory
 from services.models import User, Form
 
@@ -26,8 +27,51 @@ class AnswerForm(Factory):
         db_column='co_usuario'
     )
 
+    nco_answer_form_question = ArrayField(
+        models.IntegerField(),
+        blank=True, null=True,
+        db_column='nco_pergunta_resposta_formulario'
+    )
+
     class Meta:
         db_table = 'tb_resposta_formulario'
+
+
+class AnswerFormQuestion(Factory):
+    from services.models.form_question import FormQuestion
+
+    co_answer_form_question = models.AutoField(
+        primary_key=True, unique=True,
+        db_column='co_pergunta_resposta_formulario'
+    )
+
+    co_answer_form = models.ForeignKey(
+        AnswerForm,
+        on_delete=models.CASCADE, null=False, blank=False,
+        db_column='co_resposta_formulario'
+    )
+
+    co_form_question = models.ForeignKey(
+        FormQuestion,
+        on_delete=models.CASCADE, null=False, blank=False,
+        db_column='co_pergunta_formulario'
+    )
+
+    nds_answer_question_item = ArrayField(
+        models.IntegerField(),
+        blank=True, null=True,
+        db_column='ds_resposta_questao_item'
+    )
+
+    nds_answer_question_str = ArrayField(
+        models.TextField(),
+        blank=True, null=True,
+        db_column='ds_resposta_questao_str'
+    )
+    
+
+    class Meta:
+        db_table = 'tb_pergunta_resposta_formulario'
 
 
 class MessageForm(Factory):

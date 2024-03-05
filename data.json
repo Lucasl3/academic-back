@@ -123,5 +123,29 @@
         4
       ]
     }
+  },
+  {
+    "model": "services.User",
+    "pk": 1,
+    "fields": {
+      "no_user": "João Silva",
+      "co_registration": "20220001",
+      "co_profile": 1,
+      "ds_email": "joao.silva@example.com",
+      "ds_password": "hashed_password_1",
+      "ds_phone": "1234567890"
+    }
+  },
+  {
+    "model": "services.User",
+    "pk": 2,
+    "fields": {
+      "no_user": "Maria Santos",
+      "co_registration": "20220002",
+      "co_profile": 2,
+      "ds_email": "maria.santos@example.com",
+      "ds_password": "hashed_password_2",
+      "ds_phone": "0987654321"
+    }
   }
 ]

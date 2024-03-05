@@ -4,3 +4,4 @@ from .form_answer_controller import AnswerFormAPIView
 from .tutorial_controller import TutorialAPIView
 from .news_controller import NewsAPIView
 from .notification_controller import NotificationAPIView
+from .user_controller import UserAPIView

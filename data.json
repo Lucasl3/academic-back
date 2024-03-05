@@ -74,5 +74,25 @@
         },
         "model": "services.Tutorial",
         "pk": 2
-    }
+    },
+    {
+      "fields": {
+        "co_news": 1,
+        "no_news": "Lançamento do Novo Curso de Inteligência Artificial",
+        "ds_news": "Estamos animados para anunciar o lançamento do nosso novo curso de Inteligência Artificial. As inscrições começam na próxima semana!",
+        "dt_news": "2022-01-01"
+      },
+      "model": "services.News",
+      "pk": 1
+  },
+  {
+      "fields": {
+          "co_news": 2,
+          "no_news": "Workshop de Programação Python",
+          "ds_news": "Junte-se a nós para um workshop intensivo de programação Python. Ideal para iniciantes e programadores experientes!",
+          "dt_news": "2022-02-01"
+      },
+      "model": "services.News",
+      "pk": 2
+  }
 ]

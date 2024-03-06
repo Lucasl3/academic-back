@@ -1,0 +1,55 @@
+from dataclasses import dataclass
+
+from rest_framework.status import (
+    HTTP_200_OK,
+    HTTP_400_BAD_REQUEST,
+)
+from rest_framework.views import APIView, Response
+
+from services.models import News
+from services.serializers import NewsSerializer
+
+@dataclass()
+class NewsAPIView(APIView):
+
+    def get(self, request):
+        forms = News.objects.all()
+        serializer = NewsSerializer(forms, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+    
+    def post(self, request):
+        
+        # Implementar função que gerencie a criação de um news
+        # Implementar permissões para criação de news
+ 
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+    def put(self, request):
+
+        co_news = request.data.get('co_news')
+        if not co_news:
+            return Response(status=HTTP_400_BAD_REQUEST)
+
+        form = News.objects.get(pk=co_news)
+        serializer = NewsSerializer(form, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_200_OK)
+        
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request):
+
+        pk = request.data.get('co_news')
+
+        # Implementar função que gerencie a exclusão de um news
+        # Implementar permissões para exclusão de news
+
+        form = News.objects.get(pk=pk)
+        form.delete()
+
+        return Response(NewsSerializer(form).data, status=HTTP_200_OK)

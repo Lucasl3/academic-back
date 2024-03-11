@@ -13,10 +13,16 @@ from services.serializers import TutorialSerializer
 @dataclass()
 class TutorialAPIView(APIView):
 
-    def get(self, request):
+    def get(self, request, co_tutorial=None):
+        if co_tutorial is not None:
+            form = Tutorial.objects.get(pk=co_tutorial)
+            serializer = TutorialSerializer(form)
+            return Response(serializer.data, status=HTTP_200_OK)
+        
         forms = Tutorial.objects.all()
         serializer = TutorialSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+    
     
     def post(self, request):
         

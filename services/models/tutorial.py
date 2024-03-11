@@ -19,5 +19,11 @@ class Tutorial(Factory):
         db_column='ds_tutorial'
     )
 
+    content_tutorial = models.TextField(
+        blank=False, null=False,
+        db_column='content_tutorial',
+        default=''
+    )
+    
     class Meta:
         db_table = 'tb_tutorial'

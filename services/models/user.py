@@ -14,7 +14,7 @@ class User(Factory):
         )
     
     co_registration = models.CharField(
-        max_length=100, blank=False, 
+        max_length=100, blank=True, 
         db_column='co_matricula'
         )
     
@@ -28,7 +28,7 @@ class User(Factory):
         )
     
     ds_password = models.CharField(
-        max_length=255, blank=False, 
+        max_length=255, blank=True, 
         db_column='ds_senha'
         )
     

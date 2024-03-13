@@ -6,7 +6,7 @@ from rest_framework.status import (
     HTTP_204_NO_CONTENT,
 )
 from rest_framework.views import APIView, Response
-
+from django.db.models import Q
 from services.models import User
 from services.serializers import UserSerializer
 
@@ -15,6 +15,13 @@ class UserAPIView(APIView):
 
     def get(self, request):
         forms = User.objects.all()
+        
+        name_or_email = self.request.query_params.get('search', '')
+
+        forms = forms.filter(
+            Q(no_user__icontains=name_or_email) | Q(ds_email__icontains=name_or_email)
+        )
+        
         serializer = UserSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
     

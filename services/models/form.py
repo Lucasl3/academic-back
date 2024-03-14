@@ -24,12 +24,6 @@ class Form(Factory):
         blank=False, null=False,
         db_column='nco_pergunta_formulario'
     )
-
-    nco_answer = ArrayField(
-        models.IntegerField(),
-        blank=True, null=True,
-        db_column='nco_resposta_formulario'
-    )
     
     class Meta:
         db_table = 'tb_formulario'

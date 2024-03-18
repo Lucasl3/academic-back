@@ -4,10 +4,10 @@ from django.contrib.postgres.fields import ArrayField
 from services.helpers.factories import Factory
 from services.models import User, Form
 
-class AnswerForm(Factory):
-    co_answer_form = models.AutoField(
-        primary_key=True, unique=True,
-        db_column='co_resposta_formulario'
+class Solicitation(Factory):
+    co_solicitation = models.AutoField(
+        primary_key=True, 
+        db_column='co_solicitacao'
     )
 
     co_status = models.IntegerField(
@@ -30,11 +30,11 @@ class AnswerForm(Factory):
     nco_answer_form_question = ArrayField(
         models.IntegerField(),
         blank=True, null=True,
-        db_column='nco_pergunta_resposta_formulario'
+        db_column='nco_resposta_questao_formulario'
     )
 
     class Meta:
-        db_table = 'tb_resposta_formulario'
+        db_table = 'tb_solicitacao'
 
 
 class AnswerFormQuestion(Factory):
@@ -45,10 +45,10 @@ class AnswerFormQuestion(Factory):
         db_column='co_pergunta_resposta_formulario'
     )
 
-    co_answer_form = models.ForeignKey(
-        AnswerForm,
+    co_solicitation = models.ForeignKey(
+        Solicitation,
         on_delete=models.CASCADE, null=False, blank=False,
-        db_column='co_resposta_formulario'
+        db_column='co_solicitacao'
     )
 
     co_form_question = models.ForeignKey(
@@ -80,10 +80,10 @@ class MessageForm(Factory):
         db_column='co_mensagem_formulario'
     )
 
-    co_answer_form = models.ForeignKey(
-        AnswerForm,
+    co_solicitation = models.ForeignKey(
+        Solicitation,
         on_delete=models.CASCADE, null=False, blank=False,
-        db_column='co_resposta_formulario'
+        db_column='co_solicitacao'
     )
 
     ds_message = models.TextField(

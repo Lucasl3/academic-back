@@ -4,7 +4,7 @@ from services.controllers import (
     FormQuestionAPIView, 
     FormItemAPIView, 
     FormAPIView, 
-    AnswerFormAPIView
+    SolicitationAPIView
     )
 
 # Definir rotas de acordo com o front-end
@@ -13,5 +13,5 @@ urlpatterns = [
     path('form-item/', FormItemAPIView.as_view()),
     path('form/', FormAPIView.as_view()),
     path('form/<int:co_form>/', FormAPIView.as_view()),
-    path('answer-form/', AnswerFormAPIView.as_view()),
+    path('solicitation/', SolicitationAPIView.as_view()),
 ]

@@ -7,15 +7,15 @@ from rest_framework.status import (
 )
 from rest_framework.views import APIView, Response
 
-from services.models import AnswerForm
-from services.serializers import AnswerFormSerializer
+from services.models import Solicitation
+from services.serializers import SolicitationSerializer
 
 
 @dataclass()
-class AnswerFormAPIView(APIView):
+class SolicitationAPIView(APIView):
     def get(self, request):
-        answer_forms = AnswerForm.objects.all()
-        serializer = AnswerFormSerializer(answer_forms, many=True)
+        answer_forms = Solicitation.objects.all()
+        serializer = SolicitationSerializer(answer_forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
     
     def post(self, request):
@@ -23,7 +23,7 @@ class AnswerFormAPIView(APIView):
         # Implementar função que gerencie a criação de uma resposta de formulário
         # Implementar permissões para criação da resposta de formulário
  
-        serializer = AnswerFormSerializer(data=request.data)
+        serializer = SolicitationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
@@ -34,8 +34,8 @@ class AnswerFormAPIView(APIView):
         # Implementar função que gerencie a atualização de uma resposta de formulário
         # Implementar permissões para atualização da resposta de formulário
 
-        answer_form = AnswerForm.objects.get(pk=pk)
-        serializer = AnswerFormSerializer(answer_form, data=request.data)
+        answer_form = Solicitation.objects.get(pk=pk)
+        serializer = SolicitationSerializer(answer_form, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
@@ -46,6 +46,6 @@ class AnswerFormAPIView(APIView):
         # Implementar função que gerencie a exclusão de uma resposta de formulário
         # Implementar permissões para exclusão da resposta de formulário
 
-        answer_form = AnswerForm.objects.get(pk=pk)
+        answer_form = Solicitation.objects.get(pk=pk)
         answer_form.delete()
         return Response(status=HTTP_204_NO_CONTENT)

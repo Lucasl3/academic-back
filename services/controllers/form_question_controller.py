@@ -18,7 +18,7 @@ class FormQuestionModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
         
-    def get(self, request):
+    def list(self, request):
         form_questions = FormQuestion.objects.all()
         serializer = FormQuestionSerializer(form_questions, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
@@ -33,7 +33,7 @@ class FormItemModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
         
-    def get(self, request):
+    def list(self, request):
         form_items = FormItem.objects.all()
         serializer = FormItemSerializer(form_items, many=True)
         return Response(serializer.data, status=HTTP_200_OK)

@@ -20,7 +20,7 @@ class TutorialModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
 
-    def get(self, request, co_tutorial=None):
+    def list(self, request, co_tutorial=None):
         if co_tutorial is not None:
             form = Tutorial.objects.get(pk=co_tutorial)
             serializer = TutorialSerializer(form)

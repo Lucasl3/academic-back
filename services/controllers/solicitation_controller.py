@@ -21,7 +21,7 @@ class SolicitationModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
 
-    def get(self, request):
+    def list(self, request):
         answer_forms = Solicitation.objects.all()
         serializer = SolicitationSerializer(answer_forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)

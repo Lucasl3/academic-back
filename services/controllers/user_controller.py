@@ -21,10 +21,10 @@ class UserModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
 
-    def get(self, request):
+    def list(self, request):
         forms = User.objects.all()
         
-        name_or_email = self.request.query_params.get('search', '')
+        name_or_email = self.request.query_params.get('search') 
 
         forms = forms.filter(
             Q(no_user__icontains=name_or_email) | Q(ds_email__icontains=name_or_email)

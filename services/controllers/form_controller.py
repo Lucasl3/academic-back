@@ -20,7 +20,7 @@ class FormModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
 
-    def get(self, request, co_form=None):
+    def list(self, request, co_form=None):
 
         if co_form:
             form = Form.objects.get(

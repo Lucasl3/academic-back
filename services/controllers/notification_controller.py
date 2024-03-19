@@ -19,7 +19,7 @@ class NotificationModelViewSet(ModelViewSet):
         self.suffix = kwargs.pop('suffix', None)
         super().__init__(*args, **kwargs)
 
-    def get(self, request):
+    def list(self, request):
         forms = Notification.objects.all()
         serializer = NotificationSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)

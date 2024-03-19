@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from rest_framework.decorators import action
 
 from rest_framework.status import (
     HTTP_200_OK,
@@ -68,3 +69,27 @@ class UserModelViewSet(ModelViewSet):
         form.delete()
 
         return Response(UserSerializer(form).data, status=HTTP_200_OK)
+    
+    @action(detail=False, methods=['POST'])
+    def login(self, request):
+        no_user = request.data.get('no_user')
+        ds_email = request.data.get('ds_email')
+
+        user = User.objects.filter(
+            ds_email=ds_email
+        ).first()
+
+        if user:
+            return Response(UserSerializer(user).data, status=HTTP_200_OK)
+        
+        user_data = {
+            'no_user': no_user,
+            'ds_email': ds_email,
+            'co_profile': 2 # Padrao para usuário estudante
+        }
+
+        #  adicionar envio de e-mail!!!
+        user = User.objects.create(**user_data)
+        user.save()
+
+        return Response(UserSerializer(user).data, status=HTTP_200_OK)

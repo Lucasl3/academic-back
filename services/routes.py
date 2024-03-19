@@ -9,6 +9,7 @@ from services.controllers import (
     TutorialModelViewSet,
     SolicitationModelViewSet,
     FormMessageModelViewSet,
+    UserModelViewSet,
 )
 from services.controllers.form_message_controller import FormMessageModelViewSet
 
@@ -21,3 +22,4 @@ router.register('notification', NotificationModelViewSet, basename='Notification
 router.register('tutorial', TutorialModelViewSet, basename='Tutorial')
 router.register('solicitation', SolicitationModelViewSet, basename='Solicitation')
 router.register('form-message', FormMessageModelViewSet, basename='FormMessage')
+router.register('user', UserModelViewSet, basename='User')

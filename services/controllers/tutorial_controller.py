@@ -7,6 +7,7 @@ from rest_framework.status import (
 )
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import get_object_or_404
 
 from services.models import Tutorial
 from services.serializers import TutorialSerializer
@@ -29,6 +30,12 @@ class TutorialModelViewSet(ModelViewSet):
         forms = Tutorial.objects.all()
         serializer = TutorialSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+    
+    def retrieve(self, request, pk=None):
+        queryset = self.get_queryset()
+        item = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(item)
+        return Response(serializer.data)
     
     
     def post(self, request):

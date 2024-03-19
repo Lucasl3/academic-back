@@ -5,13 +5,21 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 
 from services.models import Form, FormQuestion, FormItem
 from services.serializers import FormSerializer
 
 @dataclass()
-class FormAPIView(APIView):
+class FormModelViewSet(ModelViewSet):
+    queryset = Form.objects.all()
+    serializer_class = FormSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
+
     def get(self, request, co_form=None):
 
         if co_form:

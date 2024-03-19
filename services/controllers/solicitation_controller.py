@@ -5,14 +5,22 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 
 from services.models import Solicitation
 from services.serializers import SolicitationSerializer
 
 
 @dataclass()
-class SolicitationAPIView(APIView):
+class SolicitationModelViewSet(ModelViewSet):
+    queryset = Solicitation.objects.all()
+    serializer_class = SolicitationSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
+
     def get(self, request):
         answer_forms = Solicitation.objects.all()
         serializer = SolicitationSerializer(answer_forms, many=True)

@@ -1,7 +1,8 @@
-from .form_question_controller import FormQuestionAPIView, FormItemAPIView
-from .form_controller import FormAPIView
-from .solicitation_controller import SolicitationAPIView
-from .tutorial_controller import TutorialAPIView
-from .news_controller import NewsAPIView
-from .notification_controller import NotificationAPIView
-from .user_controller import UserAPIView
+from .form_question_controller import FormQuestionModelViewSet, FormItemModelViewSet
+from .form_controller import FormModelViewSet
+from .solicitation_controller import SolicitationModelViewSet
+from .tutorial_controller import TutorialModelViewSet
+from .news_controller import NewsModelViewSet
+from .notification_controller import NotificationModelViewSet
+from .user_controller import UserModelViewSet
+from .form_message_controller import FormMessageModelViewSet

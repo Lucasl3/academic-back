@@ -4,13 +4,20 @@ from rest_framework.status import (
     HTTP_200_OK,
     HTTP_400_BAD_REQUEST,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 
 from services.models import Notification
 from services.serializers import NotificationSerializer
 
 @dataclass()
-class NotificationAPIView(APIView):
+class NotificationModelViewSet(ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
 
     def get(self, request):
         forms = Notification.objects.all()

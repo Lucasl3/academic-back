@@ -5,13 +5,20 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 
 from services.models import Tutorial
 from services.serializers import TutorialSerializer
 
 @dataclass()
-class TutorialAPIView(APIView):
+class TutorialModelViewSet(ModelViewSet):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
 
     def get(self, request, co_tutorial=None):
         if co_tutorial is not None:

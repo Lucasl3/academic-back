@@ -5,13 +5,20 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q
 from services.models import User
 from services.serializers import UserSerializer
 
 @dataclass()
-class UserAPIView(APIView):
+class UserModelViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
 
     def get(self, request):
         forms = User.objects.all()

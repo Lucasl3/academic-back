@@ -4,13 +4,20 @@ from rest_framework.status import (
     HTTP_200_OK,
     HTTP_400_BAD_REQUEST,
 )
-from rest_framework.views import APIView, Response
+from rest_framework.views import Response
+from rest_framework.viewsets import ModelViewSet
 
 from services.models import News
 from services.serializers import NewsSerializer
 
 @dataclass()
-class NewsAPIView(APIView):
+class NewsModelViewSet(ModelViewSet):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
 
     def get(self, request):
         forms = News.objects.all()

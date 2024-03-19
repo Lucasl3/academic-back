@@ -7,6 +7,7 @@ from rest_framework.status import (
 )
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import get_object_or_404
 
 from services.models import Form, FormQuestion, FormItem
 from services.serializers import FormSerializer
@@ -22,46 +23,50 @@ class FormModelViewSet(ModelViewSet):
 
     def list(self, request, co_form=None):
 
-        if co_form:
-            form = Form.objects.get(
-                co_form=co_form
-            )
-            serializer = FormSerializer(form)
-
-            questions = []
-            for question_id in form.nco_question:
-                question = FormQuestion.objects.get(
-                    co_form_question=question_id
-                )
-
-                items = []
-                for item_id in question.nco_form_item:
-                    item = FormItem.objects.get(co_form_item=item_id)
-                    items.append(
-                        {
-                            "co_form_item": item.co_form_item,
-                            "ds_item": item.ds_item,
-                        }
-                    )
-
-                questions.append(
-                    {
-                        "co_form_question": question.co_form_question,
-                        "no_question": question.no_question,
-                        "ds_question": question.ds_question,
-                        "co_type_question": question.co_type_question,
-                        "nco_form_item": items,
-                    }
-                )
-
-            result = serializer.data
-            result['nco_question'] = questions
-
-            return Response(result, status=HTTP_200_OK)
-
         forms = Form.objects.all()
         serializer = FormSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+    
+
+    def retrieve(self, request, pk=None):
+        queryset = self.get_queryset()
+
+        form = Form.objects.get(
+            co_form=pk
+        )
+        serializer = FormSerializer(form)
+
+        questions = []
+        for question_id in form.nco_question:
+            question = FormQuestion.objects.get(
+                co_form_question=question_id
+            )
+
+            items = []
+            for item_id in question.nco_form_item:
+                item = FormItem.objects.get(co_form_item=item_id)
+                items.append(
+                    {
+                        "co_form_item": item.co_form_item,
+                        "ds_item": item.ds_item,
+                    }
+                )
+
+            questions.append(
+                {
+                    "co_form_question": question.co_form_question,
+                    "no_question": question.no_question,
+                    "ds_question": question.ds_question,
+                    "co_type_question": question.co_type_question,
+                    "nco_form_item": items,
+                }
+            )
+
+        result = serializer.data
+        result['nco_question'] = questions
+
+        return Response(result, status=HTTP_200_OK)
+
     
     def post(self, request):
         

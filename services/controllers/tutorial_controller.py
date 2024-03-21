@@ -38,7 +38,7 @@ class TutorialModelViewSet(ModelViewSet):
         return Response(serializer.data)
     
     
-    def post(self, request):
+    def create(self, request):
         
         # Implementar função que gerencie a criação de um tutorial
         # Implementar permissões para criação de tutoriais

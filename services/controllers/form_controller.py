@@ -68,7 +68,7 @@ class FormModelViewSet(ModelViewSet):
         return Response(result, status=HTTP_200_OK)
 
     
-    def post(self, request):
+    def create(self, request):
         
         # Implementar função que gerencie a criação de um formulário
         # Implementar permissões para criação de formulários

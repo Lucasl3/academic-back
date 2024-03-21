@@ -24,7 +24,7 @@ class NotificationModelViewSet(ModelViewSet):
         serializer = NotificationSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
     
-    def post(self, request):
+    def create(self, request):
         
         # Implementar função que gerencie a criação de um notification
         # Implementar permissões para criação de notification

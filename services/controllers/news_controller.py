@@ -24,7 +24,7 @@ class NewsModelViewSet(ModelViewSet):
         serializer = NewsSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
     
-    def post(self, request):
+    def create(self, request):
         
         # Implementar função que gerencie a criação de um news
         # Implementar permissões para criação de news

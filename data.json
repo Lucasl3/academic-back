@@ -17,7 +17,7 @@
     "fields": {
       "no_question": "Curso de Graduação",
       "ds_question": "Qual o seu curso de graduação? (Selecione apenas um)",
-      "co_type_question": 1,
+      "co_type_question": "radio",
       "nco_form_item": [
         1,
         2
@@ -30,7 +30,7 @@
     "fields": {
       "no_question": "Nome",
       "ds_question": "Caixa de texto para inserir o nome do usuário",
-      "co_type_question": 2,
+      "co_type_question": "text",
       "nco_form_item": []
     },
     "model": "services.FormQuestion",
@@ -40,7 +40,7 @@
     "fields": {
       "no_question": "Comprovante de Matrícula",
       "ds_question": "Envie o comprovante de matrícula no formato PDF ou JPEG.",
-      "co_type_question": 3,
+      "co_type_question": "file",
       "nco_form_item": []
     },
     "model": "services.FormQuestion",

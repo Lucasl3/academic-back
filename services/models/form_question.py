@@ -19,9 +19,9 @@ class FormQuestion(Factory):
         db_column='ds_pergunta'
     )
 
-    co_type_question = models.IntegerField(
+    co_type_question = models.TextField(
         blank=False, null=False,
-        db_column='co_tipo_pergunta'
+        db_column='ds_tipo_pergunta'
     )
 
     nco_form_item = ArrayField(

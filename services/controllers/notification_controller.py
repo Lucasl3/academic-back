@@ -34,21 +34,8 @@ class NotificationModelViewSet(ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-    
-    # def put(self, request):
-
-    #     co_notification = request.data.get('co_notification')
-    #     if not co_notification:
-    #         return Response(status=HTTP_400_BAD_REQUEST)
-
-    #     form = Notification.objects.get(pk=co_notification)
-    #     serializer = NotificationSerializer(form, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=HTTP_200_OK)
-        
-    #     return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
+ 
+ 
     def partial_update(self, request, pk=None):
         notification = Notification.objects.get(pk=pk)
         notification.co_status = request.data.get('co_status')

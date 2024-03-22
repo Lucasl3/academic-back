@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 from services.models import MessageForm
 from services.serializers import MessageFormSerializer
 
-from services.functions.solicitation_functions import send_email_add_message
+from services.functions.email_functions import send_email_add_message
 
 @dataclass()
 class FormMessageModelViewSet(ModelViewSet):
@@ -31,5 +31,8 @@ class FormMessageModelViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        send_email_add_message(serializer.data['co_message_form'])
+        email_sent = send_email_add_message(serializer.data['co_message_form'])
+        if not email_sent:
+            return Response({'error': 'Email not sent'}, status=HTTP_200_OK)
+        
         return Response(serializer.data, status=HTTP_200_OK)

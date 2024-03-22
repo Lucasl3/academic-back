@@ -10,10 +10,11 @@ from rest_framework.status import (
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
 
-from services.models import Solicitation, AnswerFormQuestion
+from services.models import Solicitation, AnswerFormQuestion, Form
 from services.serializers import SolicitationSerializer, AnswerFormQuestionSerializer
 
 from services.functions.notification_functions import send_notification_solicitation
+from services.functions.email_functions import send_email_new_status
 
 @dataclass()
 class SolicitationModelViewSet(ModelViewSet):
@@ -101,9 +102,6 @@ class SolicitationModelViewSet(ModelViewSet):
             return Response({'error': 'Erro ao enviar notificação'}, status=HTTP_400_BAD_REQUEST)
             
         return Response(serializer_form_question.data, status=HTTP_200_OK)
-
-
-
     
     def put(self, request, pk):
 
@@ -131,3 +129,24 @@ class SolicitationModelViewSet(ModelViewSet):
         answer_questions = AnswerFormQuestion.objects.all()
         serializer = AnswerFormQuestionSerializer(answer_questions, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+
+    @action(detail=False, methods=['POST'])
+    def update_status(self, request):
+        co_solicitation = request.data.get('co_solicitation')
+        new_status = request.data.get('co_status')
+
+        solicitation = Solicitation.objects.get(pk=co_solicitation)
+        form = Form.objects.get(pk=solicitation.co_form.co_form)
+        num_of_status = len(form.nco_status)
+        if new_status < 0 or new_status > num_of_status-1:
+            return Response({'error': 'Status inválido'}, status=HTTP_400_BAD_REQUEST)
+
+        solicitation.co_status = new_status
+        solicitation.save()
+
+        notification_sent = send_email_new_status(co_solicitation)
+        if not notification_sent:
+            return Response({'error': 'Erro ao enviar notificação'}, status=HTTP_400_BAD_REQUEST)
+        
+        solicitation = SolicitationSerializer(solicitation).data
+        return Response(solicitation, status=HTTP_200_OK)

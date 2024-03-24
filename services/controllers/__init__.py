@@ -1,4 +1,4 @@
-from .form_question_controller import FormQuestionModelViewSet, FormItemModelViewSet
+from .form_question_controller import FormQuestionModelViewSet, FormItemModelViewSet, FormStepModelViewSet
 from .form_controller import FormModelViewSet
 from .solicitation_controller import SolicitationModelViewSet
 from .tutorial_controller import TutorialModelViewSet

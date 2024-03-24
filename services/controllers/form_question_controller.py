@@ -6,8 +6,22 @@ from rest_framework.status import (
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
 
-from services.models import FormQuestion, FormItem
-from services.serializers import FormQuestionSerializer, FormItemSerializer
+from services.models import FormQuestion, FormItem, FormStep
+from services.serializers import FormQuestionSerializer, FormItemSerializer, FormStepSerializer
+
+@dataclass()
+class FormStepModelViewSet(ModelViewSet):
+    queryset = FormStep.objects.all()
+    serializer_class = FormStepSerializer
+    
+    def __init__(self, *args, **kwargs):
+        self.suffix = kwargs.pop('suffix', None)
+        super().__init__(*args, **kwargs)
+        
+    def list(self, request):
+        form_steps = FormStep.objects.all()
+        serializer = FormStepSerializer(form_steps, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
 
 @dataclass()
 class FormQuestionModelViewSet(ModelViewSet):

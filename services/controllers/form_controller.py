@@ -9,7 +9,7 @@ from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
 
-from services.models import Form, FormQuestion, FormItem
+from services.models import Form, FormQuestion, FormItem, FormStep
 from services.serializers import FormSerializer
 
 @dataclass()
@@ -36,34 +36,49 @@ class FormModelViewSet(ModelViewSet):
         )
         serializer = FormSerializer(form)
 
-        questions = []
-        for question_id in form.nco_question:
-            question = FormQuestion.objects.get(
-                co_form_question=question_id
+        steps = []
+        for step_id in form.nco_step:
+            step = FormStep.objects.get(
+                co_form_step=step_id
             )
-
-            items = []
-            for item_id in question.nco_form_item:
-                item = FormItem.objects.get(co_form_item=item_id)
-                items.append(
-                    {
-                        "co_form_item": item.co_form_item,
-                        "ds_item": item.ds_item,
-                    }
+            
+            questions = []
+            for question_id in step.nco_form_question:
+                question = FormQuestion.objects.get(
+                    co_form_question=question_id
                 )
 
-            questions.append(
+                items = []
+                for item_id in question.nco_form_item:
+                    item = FormItem.objects.get(co_form_item=item_id)
+                    items.append(
+                        {
+                            "co_form_item": item.co_form_item,
+                            "ds_item": item.ds_item,
+                        }
+                    )
+
+                questions.append(
+                    {
+                        "co_form_question": question.co_form_question,
+                        "no_question": question.no_question,
+                        "ds_question": question.ds_question,
+                        "co_type_question": question.co_type_question,
+                        "nco_form_item": items,
+                    }
+                )
+        
+            steps.append(
                 {
-                    "co_form_question": question.co_form_question,
-                    "no_question": question.no_question,
-                    "ds_question": question.ds_question,
-                    "co_type_question": question.co_type_question,
-                    "nco_form_item": items,
+                    "co_form_step": step.co_form_step,
+                    "no_form_step": step.no_form_step,
+                    "ds_form_step": step.ds_form_step,
+                    "nco_form_question": questions,
                 }
             )
 
         result = serializer.data
-        result['nco_question'] = questions
+        result["nco_step"] = steps
 
         return Response(result, status=HTTP_200_OK)
 

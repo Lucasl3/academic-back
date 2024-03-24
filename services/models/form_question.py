@@ -3,6 +3,31 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from services.helpers.factories import Factory
 
+class FormStep(Factory):
+    co_form_step = models.AutoField(
+        primary_key=True, unique=True,
+        db_column='co_etapa_formulario'
+    )
+
+    no_form_step = models.CharField(
+        max_length=255, blank=False, null=False,
+        db_column='no_etapa_formulario'
+    )
+
+    ds_form_step = models.TextField(
+        blank=False, null=False,
+        db_column='ds_etapa_formulario'
+    )
+
+    nco_form_question = ArrayField(
+        models.IntegerField(),
+        blank=False, null=False,
+        db_column='nco_pergunta_formulario'
+    )
+
+    class Meta:
+        db_table = 'tb_etapa_formulario'
+
 class FormQuestion(Factory):
     co_form_question = models.AutoField(
         primary_key=True, unique=True,

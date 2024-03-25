@@ -103,7 +103,7 @@ class SolicitationModelViewSet(ModelViewSet):
             
         return Response(serializer_form_question.data, status=HTTP_200_OK)
     
-    def put(self, request, pk):
+    def update(self, request, pk):
 
         # Implementar função que gerencie a atualização de uma resposta de formulário
         # Implementar permissões para atualização da resposta de formulário

@@ -94,7 +94,7 @@ class FormModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def put(self, request, pk):
+    def update(self, request, pk):
 
         # Implementar função que gerencie a atualização de um formulário
         # Implementar permissões para atualização de formulários

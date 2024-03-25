@@ -24,6 +24,12 @@ class Tutorial(Factory):
         db_column='content_tutorial',
         default=''
     )
+
+    co_status = models.BooleanField(
+        blank=False, null=False,
+        db_column="co_status",
+        default=True
+    )
     
     class Meta:
         db_table = 'tb_tutorial'

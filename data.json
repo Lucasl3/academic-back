@@ -90,7 +90,8 @@
   {
     "fields": {
       "no_tutorial": "Como Solicitar Certidão de Vínculo",
-      "ds_tutorial": "1. Acesse o portal do aluno.\n2. No menu lateral, clique em 'Solicitações'.\n3. Selecione 'Certidão de Vínculo'.\n4. Preencha o formulário e clique em 'Enviar'.\n5. Aguarde a confirmação da secretaria por e-mail."
+      "ds_tutorial": "1. Acesse o portal do aluno.\n2. No menu lateral, clique em 'Solicitações'.\n3. Selecione 'Certidão de Vínculo'.\n4. Preencha o formulário e clique em 'Enviar'.\n5. Aguarde a confirmação da secretaria por e-mail.",
+      "co_status": 1
     },
     "model": "services.Tutorial",
     "pk": 1
@@ -98,7 +99,8 @@
   {
     "fields": {
       "no_tutorial": "Como Enviar Comprovante de Matrícula",
-      "ds_tutorial": "1. Digitalize seu comprovante de matrícula em formato PDF ou JPEG.\n2. Acesse o portal do aluno.\n3. No menu lateral, clique em 'Documentos'.\n4. Clique em 'Enviar Documento'.\n5. Selecione 'Comprovante de Matrícula' e faça o upload do arquivo.\n6. Clique em 'Enviar'.\n7. Aguarde a confirmação da secretaria por e-mail."
+      "ds_tutorial": "1. Digitalize seu comprovante de matrícula em formato PDF ou JPEG.\n2. Acesse o portal do aluno.\n3. No menu lateral, clique em 'Documentos'.\n4. Clique em 'Enviar Documento'.\n5. Selecione 'Comprovante de Matrícula' e faça o upload do arquivo.\n6. Clique em 'Enviar'.\n7. Aguarde a confirmação da secretaria por e-mail.",
+      "co_status": 1
     },
     "model": "services.Tutorial",
     "pk": 2

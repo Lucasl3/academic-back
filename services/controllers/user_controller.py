@@ -44,7 +44,7 @@ class UserModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def put(self, request):
+    def update(self, request):
 
         co_user = request.data.get('co_user')
         if not co_user:

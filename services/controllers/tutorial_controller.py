@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from rest_framework.decorators import action
 from rest_framework.status import (
     HTTP_200_OK,
     HTTP_400_BAD_REQUEST,
@@ -49,7 +50,7 @@ class TutorialModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def put(self, request):
+    def update(self, request):
 
         co_tutorial = request.data.get('co_tutorial')
         if not co_tutorial:
@@ -74,3 +75,27 @@ class TutorialModelViewSet(ModelViewSet):
         form.delete()
 
         return Response(TutorialSerializer(form).data, status=HTTP_200_OK)
+    
+    @action(detail=False, methods=['POST'])
+    def update_status(self, request):
+        co_tutorial = request.data.get('co_tutorial')
+        new_status =  request.data.get('co_status')
+        if not co_tutorial:
+            return Response({'error': 'Envie um id para o tutorial'}, status=HTTP_400_BAD_REQUEST)
+        
+        tutorial = Tutorial.objects.get(pk=co_tutorial)
+        if not tutorial:
+            return Response({'error': 'Tutorial não existe'}, status=HTTP_400_BAD_REQUEST)
+
+        if str(new_status).lower() == 'true' or new_status == 1:
+            new_status = True
+        elif str(new_status).lower() == 'false' or new_status == 0:
+            new_status = False
+        else:
+            return Response({'error': 'Status deve ser booleano'}, status=HTTP_400_BAD_REQUEST)
+
+        tutorial.co_status = new_status
+        tutorial.save()
+
+        tutorial_serializer = TutorialSerializer(tutorial)
+        return Response(tutorial_serializer.data, status=HTTP_200_OK)

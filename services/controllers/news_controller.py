@@ -35,7 +35,7 @@ class NewsModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def put(self, request):
+    def update(self, request):
 
         co_news = request.data.get('co_news')
         if not co_news:

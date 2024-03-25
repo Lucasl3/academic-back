@@ -52,7 +52,14 @@
       "ds_form": "Solicitar para a secretaria a certidão que comprove o vínculo com o Instituto de Computação (UFAL)",
       "nco_step": [
         1,
-        2
+        2,
+        3
+      ],
+      "nco_status": [
+        "Criação",
+        "Recebimento",
+        "Verificação",
+        "Enviado pra PROGRAD"
       ]
     },
     "model": "services.Form",
@@ -167,6 +174,53 @@
       "ds_email": "maria.santos@example.com",
       "ds_password": "hashed_password_2",
       "ds_phone": "0987654321"
+    }
+  },
+  {
+    "model": "services.AnswerFormQuestion",
+    "pk": 1,
+    "fields": {
+      "co_solicitation": 1,
+      "co_form_question": 1,
+      "nds_answer_question_item": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "services.AnswerFormQuestion",
+    "pk": 2,
+    "fields": {
+      "co_solicitation": 1,
+      "co_form_question": 2,
+      "nds_answer_question_str": [
+        "João Silva"
+      ]
+    }
+  },
+  {
+    "model": "services.AnswerFormQuestion",
+    "pk": 3,
+    "fields": {
+      "co_solicitation": 1,
+      "co_form_question": 3,
+      "nds_answer_question_str": [
+        "comprovante_de_matricula.pdf"
+      ]
+    }
+  },
+  {
+    "model": "services.Solicitation",
+    "pk": 1,
+    "fields": {
+      "co_status": 1,
+      "co_form": 1,
+      "co_user": 1,
+      "nco_answer_form_question": [
+        1,
+        2,
+        3
+      ]
     }
   }
 ]

@@ -24,6 +24,12 @@ class Form(Factory):
         blank=False, null=False,
         db_column='nco_etapa_formulario'
     )
+
+    nco_status = ArrayField(
+        models.TextField(),
+        blank=False, null=False,
+        db_column='nco_status_formulario'
+    )
     
     class Meta:
         db_table = 'tb_formulario'

@@ -24,7 +24,7 @@ class UserModelViewSet(ModelViewSet):
     def list(self, request):
         forms = User.objects.all()
         
-        name_or_email = self.request.query_params.get('search') 
+        name_or_email = self.request.query_params.get('search') if self.request.query_params.get('search') else ''
 
         forms = forms.filter(
             Q(no_user__icontains=name_or_email) | Q(ds_email__icontains=name_or_email)
@@ -33,7 +33,7 @@ class UserModelViewSet(ModelViewSet):
         serializer = UserSerializer(forms, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
     
-    def post(self, request):
+    def create(self, request):
         
         # Implementar função que gerencie a criação de um user
         # Implementar permissões para criação de users

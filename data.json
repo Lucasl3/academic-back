@@ -48,25 +48,6 @@
   },
   {
     "fields": {
-      "no_form": "Solicitação de Certidão de Vínculo",
-      "ds_form": "Solicitar para a secretaria a certidão que comprove o vínculo com o Instituto de Computação (UFAL)",
-      "nco_step": [
-        1,
-        2,
-        3
-      ],
-      "nco_status": [
-        "Criação",
-        "Recebimento",
-        "Verificação",
-        "Enviado pra PROGRAD"
-      ]
-    },
-    "model": "services.Form",
-    "pk": 1
-  },
-  {
-    "fields": {
       "no_form_step": "Aluno",
       "ds_form_step": "Dados Pessoais",
       "nco_form_question": [
@@ -87,6 +68,24 @@
     },
     "model": "services.FormStep",
     "pk": 2
+  },
+  {
+    "fields": {
+      "no_form": "Solicitação de Certidão de Vínculo",
+      "ds_form": "Solicitar para a secretaria a certidão que comprove o vínculo com o Instituto de Computação (UFAL)",
+      "nco_step": [
+        1,
+        2
+      ],
+      "nco_status": [
+        "Criação",
+        "Recebimento",
+        "Verificação",
+        "Enviado pra PROGRAD"
+      ]
+    },
+    "model": "services.Form",
+    "pk": 1
   },
   {
     "fields": {

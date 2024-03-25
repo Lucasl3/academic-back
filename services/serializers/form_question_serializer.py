@@ -1,6 +1,11 @@
 from services.helpers.factories import FactorySerializer
-from services.models import FormQuestion, FormItem
+from services.models import FormQuestion, FormItem, FormStep
 
+
+class FormStepSerializer(FactorySerializer):
+    class Meta:
+        model = FormStep
+        fields = '__all__'
 
 class FormQuestionSerializer(FactorySerializer):
     class Meta:

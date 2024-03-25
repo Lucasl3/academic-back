@@ -19,10 +19,10 @@ class Form(Factory):
         db_column='ds_formulario'
     )
 
-    nco_question = ArrayField(
+    nco_step = ArrayField(
         models.IntegerField(),
         blank=False, null=False,
-        db_column='nco_pergunta_formulario'
+        db_column='nco_etapa_formulario'
     )
 
     nco_status = ArrayField(

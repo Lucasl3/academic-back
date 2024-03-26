@@ -85,6 +85,11 @@ class MessageForm(Factory):
         on_delete=models.CASCADE, null=False, blank=False,
         db_column='co_solicitacao'
     )
+    
+    co_status = models.IntegerField(
+        blank=False, null=False,
+        db_column='co_status'
+    )
 
     ds_message = models.TextField(
         blank=False, null=False,

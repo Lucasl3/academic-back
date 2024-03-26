@@ -10,8 +10,8 @@ from rest_framework.status import (
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
 
-from services.models import Solicitation, AnswerFormQuestion, Form
-from services.serializers import SolicitationSerializer, AnswerFormQuestionSerializer
+from services.models import Solicitation, AnswerFormQuestion, Form, FormQuestion, MessageForm, FormItem, User
+from services.serializers import SolicitationSerializer, AnswerFormQuestionSerializer, FormQuestionSerializer
 
 from services.functions.notification_functions import send_notification_solicitation
 from services.functions.email_functions import send_email_new_status
@@ -20,6 +20,7 @@ from services.functions.email_functions import send_email_new_status
 class SolicitationModelViewSet(ModelViewSet):
     queryset = Solicitation.objects.all()
     serializer_class = SolicitationSerializer
+    # print("aqui")
     
     def __init__(self, *args, **kwargs):
         self.suffix = kwargs.pop('suffix', None)
@@ -28,10 +29,10 @@ class SolicitationModelViewSet(ModelViewSet):
     def list(self, request):
         answer_forms = Solicitation.objects.all()
         serializer = SolicitationSerializer(answer_forms, many=True)
+        print(serializer.data)
         return Response(serializer.data, status=HTTP_200_OK)
     
     def create(self, request):
-        
         data_format = {
             'co_status': 0,
             'co_form': request.data.get('co_form'),
@@ -81,7 +82,6 @@ class SolicitationModelViewSet(ModelViewSet):
         
 
     def partial_update(self, request, pk): # patch
-        
         for new_answer_form_question in request.data.get('nco_answer_form_question'):
             old_answer_form_question = AnswerFormQuestion.objects.get(
                 co_answer_form_question=new_answer_form_question.get('co_answer_form_question')
@@ -116,7 +116,6 @@ class SolicitationModelViewSet(ModelViewSet):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
-
         # Implementar função que gerencie a exclusão de uma resposta de formulário
         # Implementar permissões para exclusão da resposta de formulário
 
@@ -153,7 +152,76 @@ class SolicitationModelViewSet(ModelViewSet):
     
     @action(detail=False, methods=['GET'])
     def list_by_user(self, request):
-        co_user = request.query_params.get('co_user')
+        co_user = request.query_params.get()
         solicitation = Solicitation.objects.filter(co_user=co_user)
         serializer = SolicitationSerializer(solicitation, many=True)
-        return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.data, status=HTTP_200_OK)    
+    
+    def retrieve(self, request, pk=None):
+        solicitation = Solicitation.objects.get(
+            co_solicitation = pk
+        )
+        serializer = SolicitationSerializer(solicitation)
+
+        form = Form.objects.get(
+            co_form=serializer.data['co_form']
+        )
+
+        status = []
+        for i, status_code in enumerate(form.nco_status):
+            messages = MessageForm.objects.filter(
+                co_solicitation=pk,
+                co_status=i,
+                is_deleted=False
+            )
+            
+            message_status = []
+            for message in messages:
+                message_status.append({
+                    'ds_message_form': message.ds_message,
+                    'dt_updated_at': message.dt_updated_at,
+                })
+                
+            status.append({
+                'ds_status': status_code,
+                'messages': message_status,
+                'done': True if i < serializer.data['co_status'] else False
+            })
+        
+        questions = []
+        for question_id in solicitation.nco_answer_form_question:
+            question_answer = AnswerFormQuestion.objects.get(
+                co_answer_form_question=question_id
+            )
+            question_answer = AnswerFormQuestionSerializer(question_answer).data
+            
+            question = FormQuestion.objects.get(
+                co_form_question=question_answer['co_form_question']
+            )
+            question = FormQuestionSerializer(question).data
+            
+            if question['co_type_question'] == 'text' or question['co_type_question'] == 'file':
+                answer = question_answer['nds_answer_question_str']
+            else:
+                options = question_answer['nds_answer_question_item']
+                answer = [FormItem.objects.get(co_form_item=item).ds_item for item in options]
+            
+            questions.append({
+                'co_form_question': question['co_form_question'],
+                'no_question': question['no_question'],
+                'ds_question': question['ds_question'],
+                'co_type_question': question['co_type_question'],
+                'answer': answer,
+            })
+        
+        user_id = serializer.data['co_user']
+        user = User.objects.get(co_user=user_id)
+
+        result = serializer.data
+        result['status'] = status
+        result['title'] = form.no_form
+        result['description'] = form.ds_form
+        result['questions'] = questions
+        result['user_name'] = user.no_user
+        
+        return Response(result, status=HTTP_200_OK)

@@ -49,6 +49,10 @@ class FormQuestion(Factory):
         db_column='ds_tipo_pergunta'
     )
 
+    is_required = models.BooleanField(
+    blank=False, null=False, default=False,
+    )
+
     nco_form_item = ArrayField(
         models.IntegerField(),
         blank=True, null=True,

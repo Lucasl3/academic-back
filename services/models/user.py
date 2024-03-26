@@ -8,6 +8,7 @@ class User(Factory):
         primary_key=True, unique=True, 
         db_column='co_usuario'
         )
+    
     no_user = models.CharField(
         max_length=255, blank=False, null=False,
         db_column='no_usuario'

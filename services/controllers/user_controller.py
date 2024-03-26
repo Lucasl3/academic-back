@@ -44,18 +44,13 @@ class UserModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def update(self, request):
+    def update(self, request, pk=None):
 
-        co_user = request.data.get('co_user')
-        if not co_user:
-            return Response(status=HTTP_400_BAD_REQUEST)
-
-        form = User.objects.get(pk=co_user)
-        serializer = UserSerializer(form, data=request.data)
+        user = User.objects.get(pk=pk)
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
-        
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
     def delete(self, request):
@@ -66,7 +61,7 @@ class UserModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de users
 
         form = User.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
 
         return Response(UserSerializer(form).data, status=HTTP_200_OK)
     

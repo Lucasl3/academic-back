@@ -30,6 +30,11 @@ class Form(Factory):
         blank=False, null=False,
         db_column='nco_status_formulario'
     )
+
+    dt_limit = models.DateTimeField(
+        blank=True, null=True,
+        db_column='dt_limite_formulario'
+    )
     
     class Meta:
         db_table = 'tb_formulario'

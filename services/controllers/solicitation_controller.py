@@ -109,7 +109,7 @@ class SolicitationModelViewSet(ModelViewSet):
         # Implementar permissões para atualização da resposta de formulário
 
         answer_form = Solicitation.objects.get(pk=pk)
-        serializer = SolicitationSerializer(answer_form, data=request.data)
+        serializer = SolicitationSerializer(answer_form, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
@@ -120,7 +120,7 @@ class SolicitationModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão da resposta de formulário
 
         answer_form = Solicitation.objects.get(pk=pk)
-        answer_form.delete()
+        answer_form.hard_delete()
         return Response(status=HTTP_204_NO_CONTENT)
     
     @action(detail=False, methods=['GET'])

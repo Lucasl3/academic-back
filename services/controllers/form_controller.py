@@ -7,7 +7,6 @@ from rest_framework.status import (
 )
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
-from django.shortcuts import get_object_or_404
 
 from services.models import Form, FormQuestion, FormItem, FormStep
 from services.serializers import FormSerializer
@@ -92,6 +91,7 @@ class FormModelViewSet(ModelViewSet):
             "ds_form": request.data.get("ds_form"),
             "nco_step": [],
             "nco_status": request.data.get("nco_status"),
+            "dt_limit": request.data.get("dt_limit"),
         }
 
         nco_step_req = request.data.get("nco_step")
@@ -126,18 +126,6 @@ class FormModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-        
-    def update(self, request, pk):
-
-        # Implementar função que gerencie a atualização de um formulário
-        # Implementar permissões para atualização de formulários
-
-        form = Form.objects.get(pk=pk)
-        serializer = FormSerializer(form, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
 
@@ -145,5 +133,5 @@ class FormModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de formulários
 
         form = Form.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
         return Response(status=HTTP_204_NO_CONTENT)

@@ -32,7 +32,7 @@ class Form(Factory):
     )
 
     dt_limit = models.DateTimeField(
-        blank=False, null=False,
+        blank=True, null=True,
         db_column='dt_limite_formulario'
     )
     

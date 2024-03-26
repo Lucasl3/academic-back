@@ -109,7 +109,7 @@ class SolicitationModelViewSet(ModelViewSet):
         # Implementar permissões para atualização da resposta de formulário
 
         answer_form = Solicitation.objects.get(pk=pk)
-        serializer = SolicitationSerializer(answer_form, data=request.data)
+        serializer = SolicitationSerializer(answer_form, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)

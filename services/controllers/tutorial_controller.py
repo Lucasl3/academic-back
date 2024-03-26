@@ -50,14 +50,10 @@ class TutorialModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def update(self, request):
+    def update(self, request, pk=None):
 
-        co_tutorial = request.data.get('co_tutorial')
-        if not co_tutorial:
-            return Response(status=HTTP_400_BAD_REQUEST)
-
-        form = Tutorial.objects.get(pk=co_tutorial)
-        serializer = TutorialSerializer(form, data=request.data)
+        form = Tutorial.objects.get(pk=pk)
+        serializer = TutorialSerializer(form, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)

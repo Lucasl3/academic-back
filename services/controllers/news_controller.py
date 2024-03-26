@@ -35,14 +35,10 @@ class NewsModelViewSet(ModelViewSet):
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def update(self, request):
+    def update(self, request, pk=None):
 
-        co_news = request.data.get('co_news')
-        if not co_news:
-            return Response(status=HTTP_400_BAD_REQUEST)
-
-        form = News.objects.get(pk=co_news)
-        serializer = NewsSerializer(form, data=request.data)
+        form = News.objects.get(pk=pk)
+        serializer = NewsSerializer(form, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)

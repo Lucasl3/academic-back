@@ -20,11 +20,6 @@ class Notification(Factory):
         db_column='co_status'
     )
 
-    ds_link = models.TextField(
-        blank=True, null=True,
-        db_column='ds_link'
-    )
-
     nco_user = ArrayField(
         models.IntegerField(),
         blank=False, null=False,

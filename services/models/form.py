@@ -25,12 +25,6 @@ class Form(Factory):
         db_column='nco_etapa_formulario'
     )
 
-    nco_status = ArrayField(
-        models.TextField(),
-        blank=False, null=False,
-        db_column='nco_status_formulario'
-    )
-
     dt_limit = models.DateTimeField(
         blank=True, null=True,
         db_column='dt_limite_formulario'

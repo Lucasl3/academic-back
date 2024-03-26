@@ -135,9 +135,7 @@ class SolicitationModelViewSet(ModelViewSet):
         new_status = request.data.get('co_status')
 
         solicitation = Solicitation.objects.get(pk=co_solicitation)
-        form = Form.objects.get(pk=solicitation.co_form.co_form)
-        num_of_status = len(form.nco_status)
-        if new_status < 0 or new_status > num_of_status - 1:
+        if new_status < 0 or new_status > 3:
             return Response({'error': 'Status inválido'}, status=HTTP_400_BAD_REQUEST)
 
         solicitation.co_status = new_status
@@ -167,8 +165,15 @@ class SolicitationModelViewSet(ModelViewSet):
             co_form=serializer.data['co_form']
         )
 
+        status_code = [
+                        "Criação",
+                        "Recebimento",
+                        "Análise",
+                        "Aprovado"
+                       ]
+
         status = []
-        for i, status_code in enumerate(form.nco_status):
+        for i in range(4): # 
             messages = MessageForm.objects.filter(
                 co_solicitation=pk,
                 co_status=i,
@@ -183,7 +188,7 @@ class SolicitationModelViewSet(ModelViewSet):
                 })
                 
             status.append({
-                'ds_status': status_code,
+                'ds_status': status_code[i],
                 'messages': message_status,
                 'done': True if i < serializer.data['co_status'] else False
             })

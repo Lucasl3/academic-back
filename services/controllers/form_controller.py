@@ -90,7 +90,6 @@ class FormModelViewSet(ModelViewSet):
             "no_form": request.data.get("no_form"),
             "ds_form": request.data.get("ds_form"),
             "nco_step": [],
-            "nco_status": request.data.get("nco_status"),
             "dt_limit": request.data.get("dt_limit"),
         }
 

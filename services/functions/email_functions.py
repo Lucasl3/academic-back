@@ -52,8 +52,14 @@ def send_email_new_status(solicitation_id):
     user_email = solicitation.co_user.ds_email
     formated_data = solicitation.dt_created_at.strftime('%d/%m/%Y')
 
-    form = solicitation.co_form
-    curr_status = form.nco_status[solicitation.co_status]
+    status = [
+        "Criação",
+        "Recebimento",
+        "Análise",
+        "Aprovado"
+      ]
+
+    curr_status = status[solicitation.co_status]
 
     email_subject = 'Sua solicitação teve uma atualização de status'
     email_text = f'''

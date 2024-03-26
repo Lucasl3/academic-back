@@ -143,5 +143,5 @@ class FormModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de formulários
 
         form = Form.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
         return Response(status=HTTP_204_NO_CONTENT)

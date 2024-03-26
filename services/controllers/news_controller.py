@@ -57,6 +57,6 @@ class NewsModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de news
 
         form = News.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
 
         return Response(NewsSerializer(form).data, status=HTTP_200_OK)

@@ -66,7 +66,7 @@ class UserModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de users
 
         form = User.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
 
         return Response(UserSerializer(form).data, status=HTTP_200_OK)
     

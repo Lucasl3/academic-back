@@ -72,7 +72,7 @@ class TutorialModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de tutoriais
 
         form = Tutorial.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
 
         return Response(TutorialSerializer(form).data, status=HTTP_200_OK)
     

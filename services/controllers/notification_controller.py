@@ -51,6 +51,6 @@ class NotificationModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão de notification
 
         form = Notification.objects.get(pk=pk)
-        form.delete()
+        form.hard_delete()
 
         return Response(NotificationSerializer(form).data, status=HTTP_200_OK)

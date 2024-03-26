@@ -120,7 +120,7 @@ class SolicitationModelViewSet(ModelViewSet):
         # Implementar permissões para exclusão da resposta de formulário
 
         answer_form = Solicitation.objects.get(pk=pk)
-        answer_form.delete()
+        answer_form.hard_delete()
         return Response(status=HTTP_204_NO_CONTENT)
     
     @action(detail=False, methods=['GET'])

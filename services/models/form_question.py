@@ -50,7 +50,7 @@ class FormQuestion(Factory):
     )
 
     is_required = models.BooleanField(
-    blank=False, null=False, default=False,
+    blank=False, null=False, default=True,
     )
 
     nco_form_item = ArrayField(

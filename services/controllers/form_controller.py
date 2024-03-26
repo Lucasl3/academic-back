@@ -60,9 +60,11 @@ class FormModelViewSet(ModelViewSet):
 
                 questions.append(
                     {
+                        
                         "co_form_question": question.co_form_question,
                         "no_question": question.no_question,
                         "ds_question": question.ds_question,
+                        "is_required": question.is_required,
                         "co_type_question": question.co_type_question,
                         "nco_form_item": items,
                     }

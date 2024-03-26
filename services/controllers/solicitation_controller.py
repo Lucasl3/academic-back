@@ -137,7 +137,7 @@ class SolicitationModelViewSet(ModelViewSet):
         solicitation = Solicitation.objects.get(pk=co_solicitation)
         form = Form.objects.get(pk=solicitation.co_form.co_form)
         num_of_status = len(form.nco_status)
-        if new_status < 0 or new_status > num_of_status-1:
+        if new_status < 0 or new_status > num_of_status - 1:
             return Response({'error': 'Status inválido'}, status=HTTP_400_BAD_REQUEST)
 
         solicitation.co_status = new_status

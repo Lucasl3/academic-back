@@ -25,7 +25,9 @@ def send_email_add_message(message_id):
     solicitation = message.co_solicitation
     message_text = message.ds_message
     user_email = solicitation.co_user.ds_email
-    formated_data = solicitation.dt_created_at.strftime('%d/%m/%Y')
+    formated_data = ''
+    if solicitation.dt_created_at is not None:
+        formated_data = solicitation.dt_created_at.strftime('%d/%m/%Y')
 
     email_subject = 'Sua solicitação possui uma nova mensagem'
     email_text = f'''
@@ -51,7 +53,10 @@ def send_email_new_status(solicitation_id):
     formated_data = solicitation.dt_created_at.strftime('%d/%m/%Y')
 
     form = solicitation.co_form
-    curr_status = form.nco_status[solicitation.co_status]
+    id = solicitation.co_status
+    if id == len(form.nco_status):
+        id -= 1
+    curr_status = form.nco_status[id]
 
     email_subject = 'Sua solicitação teve uma atualização de status'
     email_text = f'''

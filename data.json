@@ -29,7 +29,7 @@
   {
     "fields": {
       "no_question": "Nome",
-      "ds_question": "Caixa de texto para inserir o nome do usuário",
+      "ds_question": "Insira seu nome completo",
       "co_type_question": "text",
       "nco_form_item": []
     },
@@ -39,7 +39,7 @@
   {
     "fields": {
       "no_question": "Comprovante de Matrícula",
-      "ds_question": "Envie o comprovante de matrícula no formato PDF ou JPEG.",
+      "ds_question": "Envie um link público do comprovante de matrícula no formato PDF ou JPEG.",
       "co_type_question": "file",
       "nco_form_item": []
     },
@@ -61,7 +61,7 @@
   {
     "fields": {
       "no_form_step": "Documentos",
-      "ds_form_step": "Documentos Necessários",
+      "ds_form_step": "Dados Necessários",
       "nco_form_question": [
         3
       ]
@@ -92,7 +92,7 @@
     "model": "services.FormQuestion",
     "fields": {
       "no_question": "Disciplina",
-      "ds_question": "Nome da disciplina cursada",
+      "ds_question": "Insira o nome da disciplina Cursada",
       "co_type_question": "text",
       "nco_form_item": []
     }
@@ -101,8 +101,8 @@
     "pk": 5,
     "model": "services.FormQuestion",
     "fields": {
-      "no_question": "Instituição",
-      "ds_question": "Nome da instituição onde a disciplina foi cursada",
+      "no_question": "Bloco/Campus",
+      "ds_question": "Nome do Bloco e Campus onde a disciplina foi cursada",
       "co_type_question": "text",
       "nco_form_item": []
     }
@@ -112,7 +112,7 @@
     "model": "services.FormQuestion",
     "fields": {
       "no_question": "Documentação Comprobatória",
-      "ds_question": "Envie a documentação comprobatória da disciplina cursada (histórico, ementa, etc.)",
+      "ds_question": "Envie um link compartilhável da documentação comprobatória da disciplina cursada (histórico, ementa, etc.)",
       "co_type_question": "file",
       "nco_form_item": []
     }
@@ -121,8 +121,8 @@
     "pk": 3,
     "model": "services.FormStep",
     "fields": {
-      "no_form_step": "Disciplinas",
-      "ds_form_step": "Informações sobre as disciplinas cursadas em outras instituições.",
+      "no_form_step": "Informações",
+      "ds_form_step": "Disciplinas Externas",
       "nco_form_question": [
         4,
         5,
@@ -164,7 +164,7 @@
     "fields": {
       "no_question": "Carga Horária",
       "ds_question": "Informe a carga horária da atividade",
-      "co_type_question": "text",
+      "co_type_question": "number",
       "nco_form_item": []
     }
   },
@@ -173,7 +173,7 @@
     "model": "services.FormQuestion",
     "fields": {
       "no_question": "Documentação Comprobatória",
-      "ds_question": "Envie a documentação comprobatória da atividade realizada",
+      "ds_question": "Envie o link da documentação comprobatória da atividade realizada",
       "co_type_question": "file",
       "nco_form_item": []
     }
@@ -193,7 +193,7 @@
     "model": "services.FormStep",
     "fields": {
       "no_form_step": "Atividade Flexível",
-      "ds_form_step": "Documentos Necessários para Atividade Flexível",
+      "ds_form_step": "Documentos Necessários",
       "nco_form_question": [
         7,
         8,
@@ -252,10 +252,6 @@
       ]
     }
   },
-
-
-
-
   {
     "pk": 3,
     "model": "services.FormItem",
@@ -390,17 +386,14 @@
     "pk": 6,
     "model": "services.FormStep",
     "fields": {
-      "no_form_step": "Avaliação Específica da Disciplina",
-      "ds_form_step": "Avaliação específica sobre a disciplina e o professor avaliados",
+      "no_form_step": "Disciplina e Professor",
+      "ds_form_step": "Avaliação Especifíca",
       "nco_form_question": [
         13,
         14
       ]
     }
   },
-
-
-
   {
     "pk": 15,
     "model": "services.FormQuestion",
@@ -419,6 +412,7 @@
     "pk": 16,
     "model": "services.FormQuestion",
     "fields": {
+      "is_required": false,
       "no_question": "Sugestões",
       "ds_question": "Você tem alguma sugestão para melhorar o curso/professor?",
       "co_type_question": "text",
@@ -443,8 +437,8 @@
     "pk": 7,
     "model": "services.FormStep",
     "fields": {
-      "no_form_step": "Avaliação Geral da Disciplina",
-      "ds_form_step": "Avaliação geral sobre a disciplina e o professor avaliados",
+      "no_form_step": "Avaliação Geral",
+      "ds_form_step": "Disciplina e o Professor",
       "nco_form_question": [
         15,
         16,
@@ -452,8 +446,6 @@
       ]
     }
   },
-
-
   {
     "pk": 4,
     "model": "services.Form",
@@ -466,6 +458,8 @@
         7
       ],
       "nco_status": [
+        "Criação",
+        "Análise",
         "Envio de Feedback"
       ]
     }
@@ -617,7 +611,7 @@
     "fields": {
       "co_status": 2,
       "co_solicitation": 1,
-      "ds_message": "Lorem Ipsum reprovou os dados Lorem ipsum da Solicitação, com o comentário: “Lorem ipsum dolor sit amet. Qui vitae nulla a praesentium deleniti cum quasi incidunt est voluptas expedita id consequatur accusantium qui provident inventore! Aut ipsa ratione ut aliquam provident ex dicta internos eum minima consectetur et rerum...”"
+      "ds_message": "Secretaria reprovou os dados da Solicitação, com o comentário: “Faltou o arquivo matricula.pdf”"
     }
   },
   {

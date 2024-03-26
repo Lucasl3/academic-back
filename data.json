@@ -244,8 +244,8 @@
     "pk": 5,
     "model": "services.FormStep",
     "fields": {
-      "no_form_step": "Dados da Disciplina",
-      "ds_form_step": "Dados sobre a disciplina e o professor avaliados.",
+      "no_form_step": "Dados Necessários",
+      "ds_form_step": "Disciplina e o Professor",
       "nco_form_question": [
         11,
         12

@@ -150,3 +150,10 @@ class SolicitationModelViewSet(ModelViewSet):
         
         solicitation = SolicitationSerializer(solicitation).data
         return Response(solicitation, status=HTTP_200_OK)
+    
+    @action(detail=False, methods=['GET'])
+    def list_by_user(self, request):
+        co_user = request.query_params.get('co_user')
+        solicitation = Solicitation.objects.filter(co_user=co_user)
+        serializer = SolicitationSerializer(solicitation, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)

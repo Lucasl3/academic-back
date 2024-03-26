@@ -84,16 +84,47 @@ class FormModelViewSet(ModelViewSet):
 
     
     def create(self, request):
-        
-        # Implementar função que gerencie a criação de um formulário
-        # Implementar permissões para criação de formulários
- 
-        serializer = FormSerializer(data=request.data)
+
+        data_format = {
+            "no_form": request.data.get("no_form"),
+            "ds_form": request.data.get("ds_form"),
+            "nco_step": [],
+            "nco_status": request.data.get("nco_status"),
+        }
+
+        nco_step_req = request.data.get("nco_step")
+        for step in nco_step_req:
+            nco_form_question = []
+            for question in step.get("nco_form_question"):
+                nco_form_item = []
+                for item in question.get("nco_form_item"):
+                    form_item = FormItem.objects.create(
+                        ds_item=item.get("ds_item")
+                    )
+                    nco_form_item.append(form_item.co_form_item)
+
+                form_question = FormQuestion.objects.create(
+                    no_question=question.get("no_question"),
+                    ds_question=question.get("ds_question"),
+                    co_type_question=question.get("co_type_question"),
+                    nco_form_item=nco_form_item,
+                )
+                nco_form_question.append(form_question.co_form_question)
+
+            form_step = FormStep.objects.create(
+                no_form_step=step.get("no_form_step"),
+                ds_form_step=step.get("ds_form_step"),
+                nco_form_question=nco_form_question,
+            )
+            data_format["nco_step"].append(form_step.co_form_step)
+
+        serializer = FormSerializer(data=data_format)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-    
+
+        
     def update(self, request, pk):
 
         # Implementar função que gerencie a atualização de um formulário

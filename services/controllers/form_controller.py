@@ -109,6 +109,7 @@ class FormModelViewSet(ModelViewSet):
                     ds_question=question.get("ds_question"),
                     co_type_question=question.get("co_type_question"),
                     nco_form_item=nco_form_item,
+                    is_required=question.get("is_required"),
                 )
                 nco_form_question.append(form_question.co_form_question)
 

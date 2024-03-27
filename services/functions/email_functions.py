@@ -53,10 +53,10 @@ def send_email_new_status(solicitation_id):
     formated_data = solicitation.dt_created_at.strftime('%d/%m/%Y')
 
     status = [
-        "Criação",
         "Recebimento",
         "Análise",
-        "Aprovado"
+        "Em aprovação",
+        "Concluído"
       ]
 
     curr_status = status[solicitation.co_status]

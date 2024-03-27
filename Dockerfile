@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 8000
 
 # criar pod init container para o migrations: https://atlasgo.io/guides/deploying/k8s-init-container
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
